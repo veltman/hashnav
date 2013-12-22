@@ -72,7 +72,7 @@ function chopHash(hash) {
 	//Do something with the new hash
 	var hash = {
 		raw: hash,
-		base: hash,
+		base: decodeURIComponent(hash),
 		parameters: null
 	}
 
@@ -80,7 +80,7 @@ function chopHash(hash) {
 		//It's a query string with a base
 		var chunks = hash.raw.split('?');
 
-		hash.base = hash.raw.replace(/[?].*/,"");
+		hash.base = decodeURIComponent(hash.raw.replace(/[?].*/,""));
 		hash.parameters = parametersFromString(hash.raw.replace(/.*[?]/,""));
 	
 	} else if (hash.raw.match(/[&]/)) {
@@ -111,7 +111,7 @@ function parametersFromString(paramString) {
 		
 		if (!kv[0].length) continue;
 		
-		results[kv[0]] = kv.length > 1 ? kv[1] : null;		
+		results[decodeURIComponent(kv[0])] = kv.length > 1 ? decodeURIComponent(kv[1]) : null;		
 
 	}
 
